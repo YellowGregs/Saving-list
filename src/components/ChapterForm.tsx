@@ -23,7 +23,6 @@ export function ChapterForm({ onSubmit }: ChapterFormProps) {
       await onSubmit(formData);
       setFormData({ title: '', Chapter: '', url: '' });
     } catch (error) {
-      // Error is handled by the parent component
     } finally {
       setIsSubmitting(false);
     }
@@ -63,7 +62,7 @@ export function ChapterForm({ onSubmit }: ChapterFormProps) {
       </div>
       <div>
         <label htmlFor="url" className="block text-sm font-medium text-gray-300 mb-2">
-          Reading URL
+          Saving URL
         </label>
         <input
           type="url"
