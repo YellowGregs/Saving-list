@@ -19,7 +19,17 @@ export function useChapters() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setChapters(data || []);
+      
+      const mappedChapters = data?.map(item => ({
+        _id: item.id,
+        title: item.title,
+        Chapter: item.Chapter || item.chapter || '',
+        url: item.url,
+        isFavorite: item.is_favorite,
+        addedAt: item.created_at
+      })) || [];
+      
+      setChapters(mappedChapters);
     } catch (error) {
       setError('Failed to fetch chapters');
       console.error('Error:', error);
@@ -32,12 +42,27 @@ export function useChapters() {
     try {
       const { data: newChapter, error } = await supabase
         .from('chapters')
-        .insert([{ ...data, user_id: (await supabase.auth.getUser()).data.user?.id }])
+        .insert([{ 
+          title: data.title,
+          Chapter: data.Chapter,
+          url: data.url,
+          user_id: (await supabase.auth.getUser()).data.user?.id 
+        }])
         .select()
         .single();
 
       if (error) throw error;
-      setChapters(prev => [newChapter, ...prev]);
+      
+      const mappedChapter = {
+        _id: newChapter.id,
+        title: newChapter.title,
+        Chapter: newChapter.Chapter || newChapter.chapter || '',
+        url: newChapter.url,
+        isFavorite: newChapter.is_favorite,
+        addedAt: newChapter.created_at
+      };
+      
+      setChapters(prev => [mappedChapter, ...prev]);
       setError(null);
     } catch (error) {
       setError('Failed to add chapter');
@@ -49,14 +74,28 @@ export function useChapters() {
     try {
       const { data: updatedChapter, error } = await supabase
         .from('chapters')
-        .update(data)
+        .update({
+          title: data.title,
+          Chapter: data.Chapter,
+          url: data.url
+        })
         .eq('id', id)
         .select()
         .single();
 
       if (error) throw error;
+      
+      const mappedChapter = {
+        _id: updatedChapter.id,
+        title: updatedChapter.title,
+        Chapter: updatedChapter.Chapter || updatedChapter.chapter || '',
+        url: updatedChapter.url,
+        isFavorite: updatedChapter.is_favorite,
+        addedAt: updatedChapter.created_at
+      };
+      
       setChapters(prev =>
-        prev.map(ch => (ch._id === id ? { ...ch, ...updatedChapter } : ch))
+        prev.map(ch => (ch._id === id ? { ...ch, ...mappedChapter } : ch))
       );
       setError(null);
     } catch (error) {
