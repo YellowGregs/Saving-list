@@ -1,13 +1,3 @@
-/*
-  # Fix column name case in chapters table
-  
-  1. Changes
-     - Rename 'chapter' column to 'Chapter' to match the application code
-  
-  2. Security
-     - No changes to security policies
-*/
-
 DO $$
 BEGIN
   IF EXISTS (
