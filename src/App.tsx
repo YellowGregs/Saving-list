@@ -46,7 +46,7 @@ export default function App() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <BookOpen className="h-10 w-10 text-indigo-500 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-100">Reading List</h1>
+            <h1 className="text-4xl font-bold text-gray-100">Saving List</h1>
           </div>
           <button
             onClick={handleSignOut}
@@ -69,7 +69,7 @@ export default function App() {
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="Search your reading list..."
+              placeholder="Search your saving list..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
@@ -77,7 +77,7 @@ export default function App() {
 
             {loading ? (
               <div className="text-center py-12 text-gray-400">
-                Loading your reading list...
+                Loading your saving list...
               </div>
             ) : (
               <ChapterList
