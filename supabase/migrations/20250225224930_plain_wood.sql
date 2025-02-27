@@ -34,7 +34,6 @@ CREATE TABLE chapters (
 
 ALTER TABLE chapters ENABLE ROW LEVEL SECURITY;
 
--- Create policies
 CREATE POLICY "Users can read own chapters"
   ON chapters
   FOR SELECT
@@ -60,7 +59,6 @@ CREATE POLICY "Users can delete own chapters"
   TO authenticated
   USING (auth.uid() = user_id);
 
--- Create updated_at trigger
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
