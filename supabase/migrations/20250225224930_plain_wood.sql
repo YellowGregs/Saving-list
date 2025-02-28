@@ -1,26 +1,3 @@
-/*
-  # Create chapters table with authentication
-
-  1. New Tables
-    - `chapters`
-      - `id` (uuid, primary key)
-      - `user_id` (uuid, references auth.users)
-      - `title` (text)
-      - `chapter` (text)
-      - `url` (text)
-      - `is_favorite` (boolean)
-      - `created_at` (timestamp)
-      - `updated_at` (timestamp)
-
-  2. Security
-    - Enable RLS on `chapters` table
-    - Add policies for authenticated users to:
-      - Read their own chapters
-      - Create new chapters
-      - Update their own chapters
-      - Delete their own chapters
-*/
-
 CREATE TABLE chapters (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES auth.users NOT NULL,
